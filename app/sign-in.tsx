@@ -1,12 +1,34 @@
 /** @format */
 
-import { Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import {
+    Alert,
+    Image,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import images from "@/constants/images";
 import icons from "@/constants/icons";
+import { login } from "@/lib/appwrite";
+import { useGlobalContext } from "@/lib/global-prodiver";
+import { Redirect } from "expo-router";
 
 const Signin = () => {
+    const { refetch, loading, isLogged } = useGlobalContext();
+    if (!loading && isLogged) return <Redirect href={"/"} />;
+    const handleSignin = async () => {
+        const result = await login();
+        console.log(result);
+        if (result) {
+            console.log("login success");
+            refetch();
+        } else {
+            Alert.alert("Error", "Failed to login");
+        }
+    };
     return (
         <SafeAreaView className='h-full bg-white'>
             <ScrollView contentContainerClassName='h-full'>
@@ -29,7 +51,10 @@ const Signin = () => {
                         Login to Real Scout with Google
                     </Text>
 
-                    <TouchableOpacity className='bg-white shadow-md  shadow-zinc-300 rounded-full w-full py-4 mt-5'>
+                    <TouchableOpacity
+                        onPress={handleSignin}
+                        className='bg-white shadow-md  shadow-zinc-300 rounded-full w-full py-4 mt-5'
+                    >
                         <View className='flex flex-row items-center gap-2 w-full border border-white justify-center'>
                             <Image
                                 source={icons.google}
