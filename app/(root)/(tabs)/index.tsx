@@ -1,6 +1,13 @@
 /** @format */
 
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useGlobalContext } from "@/lib/global-prodiver";
@@ -33,20 +40,22 @@ const Home = () => {
                 </View>
                 <SearchInput />
             </View>
-            <View className='my-5 px-5'>
-                <View className='flex flex-row items-center justify-between'>
-                    <Text className='text-black-300 font-rubik-bold text-xl'>
-                        Features
-                    </Text>
-                    <TouchableOpacity>
-                        <Text className='text-primary-300 font-rubik-bold'>
-                            See all
+            <ScrollView className='h-full pb-5'>
+                <View className='my-5 px-5'>
+                    <View className='flex flex-row items-center justify-between'>
+                        <Text className='text-black-300 font-rubik-bold text-xl'>
+                            Features
                         </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text className='text-primary-300 font-rubik-bold'>
+                                See all
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <FeatureCard />
-            <Card />
+                {/* <FeatureCard /> */}
+                <Card />
+            </ScrollView>
         </SafeAreaView>
     );
 };
